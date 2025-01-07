@@ -1,0 +1,17 @@
+import { PasswordHashStrategy } from './password-hash-strategy.interface';
+
+/** Bcrypt 사용하는 해시 전략 */
+export class BcryptHashStrategy implements PasswordHashStrategy {
+  async hash(password: string): Promise<string> {
+    console.log('Bcrypt 해시 라이브러리로 구현');
+    return password;
+  }
+
+  async verify(
+    hashedPassword: string,
+    plainPassword: string,
+  ): Promise<boolean> {
+    const hashed = await this.hash(plainPassword);
+    return hashed === hashedPassword;
+  }
+}
