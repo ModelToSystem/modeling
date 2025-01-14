@@ -15,7 +15,10 @@ type ReservationProps = {
 export class Reservation {
   constructor(readonly props: ReservationProps) {}
 
-  cancel(): void {
+  cancel(userId: string): void {
+    if (this.props.userId !== userId) {
+      throw new Error('userId가 일치하지 않습니다.');
+    }
     if (this.props.status === ReservationStatus.CONFIRMED) {
       this.props.status = ReservationStatus.CANCELED;
       console.log(
