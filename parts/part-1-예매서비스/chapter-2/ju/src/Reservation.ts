@@ -21,9 +21,10 @@ export class Reservation {
     }
     if (this.props.status === ReservationStatus.CONFIRMED) {
       this.props.status = ReservationStatus.CANCELED;
-      console.log(
-        `reservationId: ${this.props.reservationId} 의 예약이 취소되었습니다.`,
-      );
+      // 로그는 클래스에 직접 선언하지 않기
+      // console.log(
+      //   `reservationId: ${this.props.reservationId} 의 예약이 취소되었습니다.`,
+      // );
     } else {
       throw new Error('CONFIRMED 상태에서만 예약이 취소 가능합니다.');
     }
