@@ -1,4 +1,4 @@
-export type Scheduleprops = {
+export type ScheduleProps = {
   scheduleId: string;
   date: string;
   time: string;
@@ -8,10 +8,18 @@ export type Scheduleprops = {
   // 잔여 인원
   remains: number;
 };
-export class Schedule {
-  constructor(readonly props: Scheduleprops) {}
 
-  reserv(userId: string, numberOfPeople: number): Schedule {
+type ResertvInfo = {
+  // 예약자id
+  userId: string;
+  // 예약인원
+  numberOfPeople: number;
+};
+export class Schedule {
+  constructor(readonly props: ScheduleProps) {}
+
+  reserv(info: ResertvInfo): Schedule {
+    const { userId, numberOfPeople } = info;
     this.decreaseRemains(numberOfPeople);
     return new Schedule({
       ...this.props,
