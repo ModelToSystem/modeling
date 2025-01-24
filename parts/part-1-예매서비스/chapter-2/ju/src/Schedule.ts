@@ -5,16 +5,16 @@ export type ScheduleProps = {
   date: string;
   time: string;
   restaurant: Restaurant;
-  // 예약 인원
+  /** 예약 인원 */
   totalCapacity: number;
-  // 잔여 인원
+  /** 잔여 인원 */
   remains: number;
 };
 
 type ResertvInfo = {
-  // 예약자id
+  /** 예약자id */
   userId: string;
-  // 예약인원
+  /** 예약인원 */
   numberOfPeople: number;
 };
 
@@ -22,7 +22,7 @@ export class Schedule {
   constructor(readonly props: ScheduleProps) {}
 
   reserv(info: ResertvInfo): Schedule {
-    const { userId, numberOfPeople } = info;
+    const { numberOfPeople } = info;
     this.decreaseRemains(numberOfPeople);
     return new Schedule({
       ...this.props,
@@ -60,8 +60,8 @@ export class Schedule {
     return this.props.time;
   }
 
-  get restaurantId(): string {
-    return this.props.restaurantId;
+  get restaurant(): Restaurant {
+    return this.props.restaurant;
   }
 
   get totalCapacity(): number {

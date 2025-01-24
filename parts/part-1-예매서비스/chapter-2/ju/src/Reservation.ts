@@ -24,7 +24,7 @@ export class Reservation {
     if (this.props.status !== ReservationStatus.CONFIRMED) {
       throw new Error('CONFIRMED 상태에서만 예약을 취소할 수 있습니다.');
     }
-    // 예약 상태 변경
+    /* 예약 상태 변경 */
     this.props.status = ReservationStatus.CANCELED;
   }
 
