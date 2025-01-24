@@ -8,7 +8,7 @@ export type ScheduleProps = {
   /** 예약 인원 */
   totalCapacity: number;
   /** 잔여 인원 */
-  remains: number;
+  remain: number;
 };
 
 type ResertvInfo = {
@@ -23,29 +23,29 @@ export class Schedule {
 
   reserv(info: ResertvInfo): Schedule {
     const { numberOfPeople } = info;
-    this.decreaseRemains(numberOfPeople);
+    this.decreaseRemain(numberOfPeople);
     return new Schedule({
       ...this.props,
-      remains: this.props.remains,
+      remain: this.props.remain,
     });
   }
 
-  decreaseRemains(numberOfPeople: number): void {
-    if (this.props.remains < numberOfPeople || this.props.remains === 0) {
+  decreaseRemain(numberOfPeople: number): void {
+    if (this.props.remain < numberOfPeople || this.props.remain === 0) {
       throw new Error('잔여인원이 부족합니다.');
     }
-    this.props.remains -= numberOfPeople;
+    this.props.remain -= numberOfPeople;
   }
 
-  increaseRemains(numberOfPeople: number): void {
-    this.props.remains += numberOfPeople;
-    if (this.remains > this.totalCapacity) {
+  increaseRemain(numberOfPeople: number): void {
+    this.props.remain += numberOfPeople;
+    if (this.remain > this.totalCapacity) {
       throw new Error('잔여인원이 예약인원을 초과할 수 없습니다.');
     }
   }
 
   available(): boolean {
-    return this.props.remains > 0;
+    return this.props.remain > 0;
   }
 
   get scheduleId(): string {
@@ -68,7 +68,7 @@ export class Schedule {
     return this.props.totalCapacity;
   }
 
-  get remains(): number {
-    return this.props.remains;
+  get remain(): number {
+    return this.props.remain;
   }
 }
