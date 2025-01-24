@@ -1,8 +1,10 @@
+import { Restaurant } from './Restaurant';
+
 export type ScheduleProps = {
   scheduleId: string;
   date: string;
   time: string;
-  restaurantId: string;
+  restaurant: Restaurant;
   // 예약 인원
   totalCapacity: number;
   // 잔여 인원
@@ -15,6 +17,7 @@ type ResertvInfo = {
   // 예약인원
   numberOfPeople: number;
 };
+
 export class Schedule {
   constructor(readonly props: ScheduleProps) {}
 

@@ -1,3 +1,7 @@
+import { Restaurant } from './Restaurant';
+import { Schedule } from './Schedule';
+import { User } from './User';
+
 export enum ReservationStatus {
   CONFIRMED = 'CONFIRMED',
   CANCELED = 'CANCELED',
@@ -5,9 +9,10 @@ export enum ReservationStatus {
 
 type ReservationProps = {
   reservationId: string;
-  userId: string;
-  restaurantId: string;
-  scheduleId: string;
+  users: User[];
+  bookerInfo: User;
+  restaurant: Restaurant;
+  schedule: Schedule;
   reservationTime: Date;
   status: ReservationStatus;
 };
@@ -15,38 +20,35 @@ type ReservationProps = {
 export class Reservation {
   constructor(readonly props: ReservationProps) {}
 
-  cancel(userId: string): void {
-    if (this.props.userId !== userId) {
-      throw new Error('userId가 일치하지 않습니다.');
+  cancel(): void {
+    if (this.props.status !== ReservationStatus.CONFIRMED) {
+      throw new Error('CONFIRMED 상태에서만 예약을 취소할 수 있습니다.');
     }
-    if (this.props.status === ReservationStatus.CONFIRMED) {
-      this.props.status = ReservationStatus.CANCELED;
-      // 로그는 클래스에 직접 선언하지 않기
-      // console.log(
-      //   `reservationId: ${this.props.reservationId} 의 예약이 취소되었습니다.`,
-      // );
-    } else {
-      throw new Error('CONFIRMED 상태에서만 예약이 취소 가능합니다.');
-    }
+    // 예약 상태 변경
+    this.props.status = ReservationStatus.CANCELED;
   }
 
   get reservationId(): string {
     return this.props.reservationId;
   }
 
-  get userId(): string {
-    return this.props.userId;
+  get users(): User[] {
+    return this.props.users;
   }
 
-  get restaurantId(): string {
-    return this.props.restaurantId;
+  get bookerInfo(): User {
+    return this.props.bookerInfo;
   }
 
-  get scheduleId(): string {
-    return this.props.scheduleId;
+  get restaurant(): Restaurant {
+    return this.props.restaurant;
   }
 
-  get status(): string {
+  get schedule(): Schedule {
+    return this.props.schedule;
+  }
+
+  get status(): ReservationStatus {
     return this.props.status;
   }
 }
