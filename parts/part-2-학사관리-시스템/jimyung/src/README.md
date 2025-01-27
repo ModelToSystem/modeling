@@ -1,4 +1,10 @@
-# 클래스 다이어그램
+# 수강신청 시스템
+
+## 유스 케이스
+
+![유스 케이스](https://i.imgur.com/AbP8bn3.png)
+
+## 클래스 다이어그램
 
 ```mermaid
 classDiagram
@@ -11,8 +17,8 @@ class User {
         +id: string
         -allowedCredits: number
         -enrollments: Map~string, Enrollment~
-        +enroll(lecture: Lecture): Enrollment
-        +cancelEnrollment(lecture: Lecture): void
+        +apply(lecture: Lecture): Enrollment
+        +cancelApplication(lecture: Lecture): void
         +allowedCredits(): number
     }
 
