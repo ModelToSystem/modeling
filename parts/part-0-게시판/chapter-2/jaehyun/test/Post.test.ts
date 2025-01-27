@@ -83,8 +83,8 @@ describe('Post', () => {
       await post.hashPassword();
       post.addComment(new Comment({ ...commentProps }));
       posts.push(post);
-      console.log(props);
-      console.log(post);
+      // console.log(props);
+      // console.log(post);
     });
 
     it('비밀번호가 일치하면 게시글 삭제에 성공한다.', async () => {
