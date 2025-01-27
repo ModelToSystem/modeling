@@ -8,10 +8,10 @@
 
 ```mermaid
 classDiagram
-class User {
-<<interface>>
-+id: string
-}
+    class User {
+        <<interface>>
+        +id: string
+    }
 
     class Student {
         +id: string
@@ -23,9 +23,10 @@ class User {
     }
 
     class Enrollment {
+        +userId: string
         +lectureId: string
         -status: EnrollmentStatus
-        +static enroll(lecture: Lecture): Enrollment
+        +static enroll(userId: string, lecture: Lecture): Enrollment
         +cancel(lecture: Lecture): void
         +status(): EnrollmentStatus
     }

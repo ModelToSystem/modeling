@@ -22,7 +22,7 @@ describe('Student', () => {
       const initialAllowedCredits = student.allowedCredits;
 
       // when
-      student.apply(lecture);
+      student.apply(lecture);
 
       // then
       expect(lecture.capacity).toBe(initialCapacity - 1);
@@ -45,7 +45,7 @@ describe('Student', () => {
       const initialAllowedCredits = student.allowedCredits;
 
       // when
-      const creditOverflowedEnrollment = () => student.apply(lecture);
+      const creditOverflowedEnrollment = () => student.apply(lecture);
 
       // then
       expect(creditOverflowedEnrollment).toThrow(
@@ -72,7 +72,7 @@ describe('Student', () => {
       const initialAllowedCredits = student.allowedCredits;
 
       // when
-      student.apply(lecture);
+      student.apply(lecture);
       student.cancelApplication(lecture);
 
       // then
