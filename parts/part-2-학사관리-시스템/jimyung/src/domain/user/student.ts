@@ -14,7 +14,7 @@ export class Student implements User {
     this.#enrollments = new Map();
   }
 
-  enroll(lecture: Lecture): Enrollment {
+  apply(lecture: Lecture): Enrollment {
     if (this.#allowedCredits < lecture.credits) {
       throw new InvalidException(ErrorCodes.Student.INSUFFICIENT_CREDITS);
     }
@@ -26,7 +26,7 @@ export class Student implements User {
     return enrollment;
   }
 
-  cancelEnrollment(lecture: Lecture) {
+  cancelApplication(lecture: Lecture) {
     const enrollment = this.#enrollments.get(lecture.id);
     enrollment.cancel(lecture);
 
