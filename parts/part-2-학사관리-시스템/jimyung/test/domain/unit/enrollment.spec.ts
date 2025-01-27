@@ -26,7 +26,7 @@ describe('Enrollment', () => {
       const initialCapacity = lecture.capacity;
 
       // when
-      const enrollment = Enrollment.enroll(lecture);
+      const enrollment = Enrollment.enroll('1', lecture);
 
       // then
       expect(lecture.capacity).toBe(initialCapacity - 1);
@@ -37,7 +37,7 @@ describe('Enrollment', () => {
   describe('수강 신청 취소', () => {
     it('수강 취소 성공시 강의 수강 가능 인원 증가 및 등록 상태 CANCELLED', () => {
       // given
-      const enrollment = Enrollment.enroll(lecture);
+      const enrollment = Enrollment.enroll('1', lecture);
       const initialCapacity = lecture.capacity;
 
       // when
@@ -50,7 +50,7 @@ describe('Enrollment', () => {
 
     it('이미 취소된 수강 신청일 경우 예외 발생', () => {
       // given
-      const enrollment = Enrollment.enroll(lecture);
+      const enrollment = Enrollment.enroll('1', lecture);
 
       // when
       enrollment.cancel(lecture);

@@ -19,7 +19,7 @@ export class Student implements User {
       throw new InvalidException(ErrorCodes.Student.INSUFFICIENT_CREDITS);
     }
 
-    const enrollment = Enrollment.enroll(lecture);
+    const enrollment = Enrollment.enroll(this.id, lecture);
     this.#allowedCredits -= lecture.credits;
     this.#enrollments.set(lecture.id, enrollment);
 
