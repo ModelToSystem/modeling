@@ -15,30 +15,27 @@ type ResertvInfo = {
   /** 예약자id */
   userId: string;
   /** 예약인원 */
-  numberOfPeople: number;
+  reservCount: number;
 };
 
 export class Schedule {
   constructor(readonly props: ScheduleProps) {}
 
   reserv(info: ResertvInfo): Schedule {
-    const { numberOfPeople } = info;
-    this.decreaseRemain(numberOfPeople);
-    return new Schedule({
-      ...this.props,
-      remain: this.props.remain,
-    });
+    const { reservCount } = info;
+    this.decreaseRemain(reservCount);
+    return this;
   }
 
-  decreaseRemain(numberOfPeople: number): void {
-    if (this.props.remain < numberOfPeople || this.props.remain === 0) {
+  decreaseRemain(reservCount: number): void {
+    if (this.props.remain < reservCount || this.props.remain === 0) {
       throw new Error('잔여인원이 부족합니다.');
     }
-    this.props.remain -= numberOfPeople;
+    this.props.remain -= reservCount;
   }
 
-  increaseRemain(numberOfPeople: number): void {
-    this.props.remain += numberOfPeople;
+  increaseRemain(reservCount: number): void {
+    this.props.remain += reservCount;
     if (this.remain > this.totalCapacity) {
       throw new Error('잔여인원이 예약인원을 초과할 수 없습니다.');
     }
