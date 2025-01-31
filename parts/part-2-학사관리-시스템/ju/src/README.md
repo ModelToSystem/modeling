@@ -1,4 +1,10 @@
-```
+# 📚 학사 관리 시스템 - 수강 신청, 취소 (Lecture Management System)
+
+---
+
+## 📌 클래스 다이어그램
+
+```mermaid
 classDiagram
     class Lecture {
         +String id
@@ -47,11 +53,11 @@ classDiagram
         +status()
     }
 
+    %% 관계 설정
     Student --> "1 : 1" User
     Student "1" --o "n" Enrollment
-    Professor --> "1 : 1"  User
+    Professor --> "1 : 1" User
     Professor "1" --> "n" Lecture
     Enrollment "1" --> "1" Lecture
     Lecture "1" --> "n" TimeList
-
 ```
