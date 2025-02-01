@@ -1,4 +1,4 @@
-import { Professor } from './Professor';
+import { Professor } from './user/Professor';
 
 export enum LectureType {
   전공 = '전공',

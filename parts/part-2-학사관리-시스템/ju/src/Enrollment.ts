@@ -1,5 +1,5 @@
 import { Lecture } from './Lecture';
-import { Student } from './Student';
+import { Student } from './user/Student';
 
 export enum enrollmentStatus {
   CONFIRMED = 'CONFIRMED',
