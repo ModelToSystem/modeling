@@ -37,6 +37,7 @@ classDiagram
 
     class Student {
         +String id
+        +String name
         +Int currentCredits
         -Map<string, Enrollment> enrollments
         +checkCredits()
