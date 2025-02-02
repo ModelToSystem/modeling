@@ -3,7 +3,7 @@ import {
   ErrorCodes,
   InvalidException,
   Lecture,
-} from 'parts/part-2-학사관리-시스템/jimyung/src/domain';
+} from 'parts/part-2-학사관리시스템-수강신청/chapter-2/jimyung/src/domain';
 
 describe('Lecture', () => {
   describe('생성', () => {
