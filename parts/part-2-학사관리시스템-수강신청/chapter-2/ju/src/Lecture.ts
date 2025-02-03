@@ -15,9 +15,9 @@ export enum DayOfWeek {
 
 type TimeList = {
   /** 강의 시작시간 */
-  startTime: Date;
+  startTime: string;
   /** 강의 종료시간 */
-  endTime: Date;
+  endTime: string;
   /** 요일 */
   dayOfWeek: DayOfWeek;
 };
@@ -46,7 +46,7 @@ export class Lecture {
   constructor(readonly props: LectureProps) {}
 
   increaseCapacity(): void {
-    if (this.props.remainCapacity === this.props.maxCapacity) {
+    if (this.props.remainCapacity >= this.props.maxCapacity) {
       throw new Error('강의인원을 초과했습니다.');
     }
     this.props.remainCapacity++;
