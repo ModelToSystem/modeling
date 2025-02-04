@@ -1,4 +1,10 @@
-import { DayOfWeek, enrollmentStatus, Lecture, LectureType } from '../../src';
+import {
+  DayOfWeek,
+  Enrollment,
+  enrollmentStatus,
+  Lecture,
+  LectureType,
+} from '../../src';
 import { Professor, Student } from '../../src/user';
 
 describe('Student', () => {
@@ -6,9 +12,8 @@ describe('Student', () => {
   let lecture: Lecture;
   let lecture2: Lecture;
   let lecture3: Lecture;
-  let enrollLecture;
-  let cancelLecture;
-  let cancelLecture2;
+  let enrollLecture: Enrollment;
+  let cancelLecture: Enrollment;
   const props = {
     id: '1',
     professor: new Professor({ userId: '1', name: '교수' }),
@@ -44,7 +49,7 @@ describe('Student', () => {
 
     enrollLecture = student.enrollLecture(lecture);
     cancelLecture = student.enrollLecture(lecture2);
-    cancelLecture2 = student.cancelLecture(lecture3);
+    student.cancelLecture(lecture3);
   });
 
   describe('등록 객체 생성 명령한다.', () => {
