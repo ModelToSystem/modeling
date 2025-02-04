@@ -14,23 +14,30 @@ type StudentProps = {
 export class Student implements User {
   constructor(readonly props: StudentProps) {}
 
+  /** 등록 객체 생성 명령 */
   enrollLecture(lecture: Lecture): Enrollment {
-    /** 등록 객체 생성 명령 */
+    this.props.currentCredits += lecture.credits;
     const enrollent = Enrollment.create(lecture, this);
-    this.props.currentCredits + lecture.credits;
     this.props.enrollments.set(lecture.getId, enrollent);
 
     return enrollent;
   }
 
+  /** 등록 객체 취소 명령 */
   cancelLecture(lecture: Lecture): void {
     const enrollment = this.props.enrollments.get(lecture.getId);
-    /** 강의 취소 명령 */
+    if (!enrollment) {
+      throw new Error('등록된 강의가 없습니다.');
+    }
+    this.props.currentCredits -= lecture.credits;
     enrollment.cancelStatus(lecture);
-    this.props.currentCredits - lecture.credits;
   }
 
   get currentCredits(): number {
     return this.props.currentCredits;
+  }
+
+  get enrollments(): Map<string, Enrollment> {
+    return this.props.enrollments;
   }
 }
