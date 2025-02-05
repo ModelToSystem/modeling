@@ -7,7 +7,7 @@ type StudentProps = {
   name: string;
   /** 현재 신청 학점 */
   currentCredits: number;
-  /** 강의 시간표 */
+  /** 등록 강의 내역 */
   enrollments: Map<string, Enrollment>;
 };
 
@@ -29,8 +29,8 @@ export class Student implements User {
     if (!enrollment) {
       throw new Error('등록된 강의가 없습니다.');
     }
-    this.props.currentCredits -= lecture.credits;
     enrollment.cancelStatus(lecture);
+    this.props.currentCredits -= lecture.credits;
   }
 
   get currentCredits(): number {
