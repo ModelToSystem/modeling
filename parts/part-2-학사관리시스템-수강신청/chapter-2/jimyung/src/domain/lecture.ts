@@ -3,22 +3,29 @@ import { Values } from '../type';
 import { ErrorCodes, InvalidException } from './exception';
 import { TimeSlot } from './time-slot';
 
-export const CourseType = {
-  Required: {
-    Major: '전공필수',
-    Ge: '교양필수',
-  },
-  Elective: {
-    Major: '전공선택',
-    Ge: '교양선택',
-  },
+// 전공/교양 분리
+const CourseCategory = {
+  Major: '전공',
+  Ge: '교양',
 } as const;
 
-export type CourseType = Values<{
-  [K in keyof typeof CourseType]: Values<(typeof CourseType)[K]>;
-}>;
+// 필수/선택 분리
+const CourseRequirement = {
+  Required: '필수',
+  Elective: '선택',
+} as const;
 
-export type LectureProps = {
+// 조합 타입 생성
+const CourseType = {
+  RequiredMajor: `${CourseCategory.Major}${CourseRequirement.Required}`,
+  RequiredGe: `${CourseCategory.Ge}${CourseRequirement.Required}`,
+  ElectiveMajor: `${CourseCategory.Major}${CourseRequirement.Elective}`,
+  ElectiveGe: `${CourseCategory.Ge}${CourseRequirement.Elective}`,
+} as const;
+
+type CourseType = Values<typeof CourseType>;
+
+type LectureProps = {
   readonly id: string;
   readonly name: string;
   readonly credits: number;
