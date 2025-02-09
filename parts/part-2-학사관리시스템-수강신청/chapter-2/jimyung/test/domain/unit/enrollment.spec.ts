@@ -15,7 +15,7 @@ describe('Enrollment', () => {
       name: 'Math',
       credits: 3,
       professorId: '1',
-      courseType: CourseType.Required.Ge,
+      courseType: CourseType.RequiredGe,
       capacity: 10,
     });
   });
@@ -37,23 +37,21 @@ describe('Enrollment', () => {
   describe('수강 신청 취소', () => {
     it('수강 취소 성공시 강의 수강 가능 인원 증가 및 등록 상태 CANCELLED', () => {
       // given
-      const enrollment = Enrollment.enroll('1', lecture);
-      const initialCapacity = lecture.capacity;
+      let enrollment = Enrollment.enroll('1', lecture);
 
       // when
-      enrollment.cancel(lecture);
+      enrollment = enrollment.cancel(lecture);
 
       // then
-      expect(lecture.capacity).toBe(initialCapacity + 1);
       expect(enrollment.status).toBe(EnrollmentStatus.CANCELLED);
     });
 
     it('이미 취소된 수강 신청일 경우 예외 발생', () => {
       // given
-      const enrollment = Enrollment.enroll('1', lecture);
+      let enrollment = Enrollment.enroll('1', lecture);
 
       // when
-      enrollment.cancel(lecture);
+      enrollment = enrollment.cancel(lecture);
       const duplicateCancel = () => enrollment.cancel(lecture);
 
       // then

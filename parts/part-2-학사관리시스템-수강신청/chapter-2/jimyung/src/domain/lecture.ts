@@ -16,7 +16,7 @@ const CourseRequirement = {
 } as const;
 
 // 조합 타입 생성
-const CourseType = {
+export const CourseType = {
   RequiredMajor: `${CourseCategory.Major}${CourseRequirement.Required}`,
   RequiredGe: `${CourseCategory.Ge}${CourseRequirement.Required}`,
   ElectiveMajor: `${CourseCategory.Major}${CourseRequirement.Elective}`,

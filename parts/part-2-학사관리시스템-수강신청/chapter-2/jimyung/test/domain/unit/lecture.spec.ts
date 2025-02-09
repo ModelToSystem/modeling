@@ -13,7 +13,7 @@ describe('Lecture', () => {
         name: '컴퓨터 공학 개론',
         credits: 0,
         professorId: '1',
-        courseType: CourseType.Required.Ge,
+        courseType: CourseType.RequiredGe,
         capacity: 10,
       };
 
@@ -32,7 +32,7 @@ describe('Lecture', () => {
         name: '컴퓨터 공학 개론',
         credits: 1,
         professorId: '1',
-        courseType: CourseType.Required.Ge,
+        courseType: CourseType.RequiredGe,
         capacity: -1,
       };
 
@@ -53,7 +53,7 @@ describe('Lecture', () => {
         name: '컴퓨터 공학 개론',
         credits: 1,
         professorId: '1',
-        courseType: CourseType.Required.Ge,
+        courseType: CourseType.RequiredGe,
         capacity: 1,
       });
       const priorCapacity = lecture.capacity;
@@ -71,7 +71,7 @@ describe('Lecture', () => {
         name: '컴퓨터 공학 개론',
         credits: 1,
         professorId: '1',
-        courseType: CourseType.Required.Ge,
+        courseType: CourseType.RequiredGe,
         capacity: 0,
       });
 
@@ -92,7 +92,7 @@ describe('Lecture', () => {
         name: '컴퓨터 공학 개론',
         credits: 1,
         professorId: '1',
-        courseType: CourseType.Required.Ge,
+        courseType: CourseType.RequiredGe,
         capacity: 0,
       });
       const priorCapacity = lecture.capacity;
