@@ -6,12 +6,17 @@ import { Lecture } from '../lecture';
 export class Student implements User {
   readonly id: string;
   #allowedCredits: number;
-  #enrollments: Map<string, Enrollment>;
+  #enrollments?: Map<string, Enrollment>;
 
-  constructor(props: User & { allowedCredits: number }) {
+  constructor(
+    props: User & {
+      allowedCredits: number;
+      enrollments?: Map<string, Enrollment>;
+    },
+  ) {
     this.id = props.id;
     this.#allowedCredits = props.allowedCredits;
-    this.#enrollments = new Map();
+    this.#enrollments = props.enrollments ?? new Map();
   }
 
   apply(lecture: Lecture): Enrollment {
