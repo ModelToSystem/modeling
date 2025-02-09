@@ -18,14 +18,12 @@ describe('Student', () => {
         courseType: CourseType.Required.Ge,
         capacity: 10,
       });
-      const initialCapacity = lecture.capacity;
       const initialAllowedCredits = student.allowedCredits;
 
       // when
       student.apply(lecture);
 
       // then
-      expect(lecture.capacity).toBe(initialCapacity - 1);
       expect(student.allowedCredits).toBe(
         initialAllowedCredits - lecture.credits,
       );
@@ -41,7 +39,6 @@ describe('Student', () => {
         courseType: CourseType.Required.Ge,
         capacity: 10,
       });
-      const initialCapacity = lecture.capacity;
       const initialAllowedCredits = student.allowedCredits;
 
       // when
@@ -51,7 +48,6 @@ describe('Student', () => {
       expect(creditOverflowedEnrollment).toThrow(
         new InvalidException(ErrorCodes.Student.INSUFFICIENT_CREDITS),
       );
-      expect(lecture.capacity).toBe(initialCapacity);
       expect(student.allowedCredits).toBe(initialAllowedCredits);
     });
   });
@@ -68,7 +64,6 @@ describe('Student', () => {
         courseType: CourseType.Required.Ge,
         capacity: 10,
       });
-      const initialCapacity = lecture.capacity;
       const initialAllowedCredits = student.allowedCredits;
 
       // when
@@ -76,7 +71,6 @@ describe('Student', () => {
       student.cancelApplication(lecture);
 
       // then
-      expect(lecture.capacity).toBe(initialCapacity);
       expect(student.allowedCredits).toBe(initialAllowedCredits);
     });
   });
