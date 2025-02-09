@@ -36,7 +36,7 @@ describe('Student', () => {
 
     it('수강 신청 시 수강 가능 학점이 부족할 경우 예외 발생', () => {
       // given
-      const student = new Student({ id: '1', allowedCredits: 10 });
+      const student = new Student({ id: '1', allowedCredits: 2 });
       const initialAllowedCredits = student.allowedCredits;
 
       // when
