@@ -19,26 +19,35 @@ export class Student implements User {
     this.#enrollments = props.enrollments ?? new Map();
   }
 
-  apply(lecture: Lecture): Enrollment {
+  apply(lecture: Lecture): Lecture {
     if (this.#allowedCredits < lecture.credits) {
       throw new InvalidException(ErrorCodes.Student.INSUFFICIENT_CREDITS);
     }
 
     const enrollment = Enrollment.enroll(this.id, lecture);
+
     this.#allowedCredits -= lecture.credits;
     this.#enrollments.set(lecture.id, enrollment);
 
-    return enrollment;
+    return lecture;
   }
 
-  cancelApplication(lecture: Lecture) {
-    const enrollment = this.#enrollments.get(lecture.id);
-    enrollment.cancel(lecture);
+  cancelApplication(lecture: Lecture): Lecture {
+    const canceledEnrollment = this.#enrollments
+      .get(lecture.id)
+      .cancel(lecture);
 
+    this.#enrollments.set(lecture.id, canceledEnrollment);
     this.#allowedCredits += lecture.credits;
+
+    return lecture;
   }
 
   get allowedCredits() {
     return this.#allowedCredits;
+  }
+
+  get enrollments() {
+    return this.#enrollments as ReadonlyMap<string, Enrollment>;
   }
 }
