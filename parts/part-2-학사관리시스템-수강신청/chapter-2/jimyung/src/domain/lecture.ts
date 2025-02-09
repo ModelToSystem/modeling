@@ -56,18 +56,18 @@ export class Lecture {
     this.#capacity = props.capacity;
   }
 
-  decreaseCapacity(): this {
-    if (this.#capacity === 0) {
+  decreaseCapacity(capacity: number = 1): this {
+    if (capacity <= 0 || this.#capacity < capacity) {
       throw new InvalidException(ErrorCodes.Lecture.INVALID_CAPACITY);
     }
 
-    this.#capacity--;
+    this.#capacity -= capacity;
 
     return this;
   }
 
-  increaseCapacity(): this {
-    this.#capacity++;
+  increaseCapacity(capacity: number = 1): this {
+    this.#capacity += capacity;
 
     return this;
   }
