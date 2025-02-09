@@ -1,5 +1,4 @@
 import {
-  CourseType,
   ErrorCodes,
   InvalidException,
   Lecture,
@@ -15,7 +14,7 @@ describe('Student', () => {
         name: 'Math',
         credits: 3,
         professorId: '1',
-        courseType: CourseType.Required.Ge,
+        courseType: '교양필수',
         capacity: 10,
       });
       const initialAllowedCredits = student.allowedCredits;
@@ -36,7 +35,7 @@ describe('Student', () => {
         name: 'Math',
         credits: 11,
         professorId: '1',
-        courseType: CourseType.Required.Ge,
+        courseType: '교양필수',
         capacity: 10,
       });
       const initialAllowedCredits = student.allowedCredits;
@@ -61,7 +60,7 @@ describe('Student', () => {
         name: 'Math',
         credits: 3,
         professorId: '1',
-        courseType: CourseType.Required.Ge,
+        courseType: '교양필수',
         capacity: 10,
       });
       const initialAllowedCredits = student.allowedCredits;
