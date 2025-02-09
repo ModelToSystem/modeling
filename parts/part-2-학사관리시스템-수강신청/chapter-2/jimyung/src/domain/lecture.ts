@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid';
+import { randomUUID } from 'crypto';
 import { Values } from '../type';
 import { ErrorCodes, InvalidException } from './exception';
 import { TimeSlot } from './time-slot';
@@ -40,7 +40,7 @@ export class Lecture {
   constructor(props: Omit<LectureProps, 'id' | 'timeSlots'>) {
     this.#validateProps(props);
 
-    this.id = nanoid();
+    this.id = randomUUID();
     this.timeSlots = [];
     this.name = props.name;
     this.credits = props.credits;

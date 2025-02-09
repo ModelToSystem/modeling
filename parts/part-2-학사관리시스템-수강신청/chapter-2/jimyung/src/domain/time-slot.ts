@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid';
+import { randomUUID } from 'crypto';
 import { ErrorCodes, InvalidException } from './exception';
 
 export const DayOfWeek = {
@@ -30,7 +30,7 @@ export class TimeSlot {
   constructor(props: Omit<TimeSlotProps, 'id'>) {
     this.#validateProps(props);
 
-    this.id = nanoid();
+    this.id = randomUUID();
     this.lectureId = props.lectureId;
     this.dayOfWeek = props.dayOfWeek;
     this.startTime = props.startTime;
