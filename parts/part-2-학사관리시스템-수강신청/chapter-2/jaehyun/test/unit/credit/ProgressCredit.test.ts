@@ -1,8 +1,8 @@
-import { ProgressCredit, CreditType, SelectionType } from '../../src/credit';
+import { ProgressCredit, CreditType, SelectionType } from '../../../src/credit';
 import {
   BadParameterException,
   ConflictStatusException,
-} from '../../src/exception';
+} from '../../../src/exception';
 
 describe('ProgressCredit', () => {
   // 초기 학점 설정 값

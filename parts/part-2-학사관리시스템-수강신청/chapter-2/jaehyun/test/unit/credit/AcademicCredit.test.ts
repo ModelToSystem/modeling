@@ -1,5 +1,5 @@
-import { AcademicCredit, CreditType, SelectionType } from '../../src/credit';
-import { BadParameterException } from '../../src/exception';
+import { AcademicCredit, CreditType, SelectionType } from '../../../src/credit';
+import { BadParameterException } from '../../../src/exception';
 
 /**
  * AcademicCredit의 학점 계산 로직에 대한 테스트 케이스
