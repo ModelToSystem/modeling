@@ -1,3 +1,4 @@
+import { AbstractDomain } from '../AbstractDomain';
 import { BadParameterException } from '../exception';
 import { CreditType, SelectionType } from './enum';
 
@@ -33,8 +34,10 @@ export type AbstractCreditProps = {
 /**
  * 학점에 대한 규칙을 가지는 추상 클래스
  */
-export abstract class AbstractCredit {
-  constructor(protected props: AbstractCreditProps) {}
+export abstract class AbstractCredit extends AbstractDomain {
+  constructor(protected props: AbstractCreditProps) {
+    super();
+  }
 
   get id(): string {
     return this.props.id;
