@@ -114,8 +114,8 @@ export class Lecture extends AbstractDomain {
   open(): this {
     // TODO: cancel()로 인해 다시 "OPEN"되는 로직 개선이 필요하다. ex) 상태패턴
     const isCallCancel =
-      !this.isFull() &&
-      this.props.enrollStatus === LectureEnrollStatus.OVER_CAPACITY;
+      this.props.enrollStatus === LectureEnrollStatus.OVER_CAPACITY &&
+      !this.isFull();
 
     const isOpenable =
       isCallCancel || this.props.enrollStatus === LectureEnrollStatus.EXPECTED;
@@ -139,7 +139,7 @@ export class Lecture extends AbstractDomain {
    */
   full(): this {
     const isOverCapacity =
-      this.isFull() && this.props.enrollStatus === LectureEnrollStatus.OPEN;
+      this.props.enrollStatus === LectureEnrollStatus.OPEN && this.isFull();
 
     if (!isOverCapacity) {
       throw new ConflictStatusException(
@@ -243,8 +243,9 @@ export class Lecture extends AbstractDomain {
       throw new ConflictStatusException(`신청자가 없어 취소할 수 없습니다.`);
     }
 
+    const isBeforeFull = this.isFull();
     this.props.currentEnrollment--;
-    if (!this.isFull()) this.open();
+    if (isBeforeFull) this.open();
 
     return this;
   }
