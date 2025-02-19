@@ -107,79 +107,49 @@ export class Lecture extends AbstractDomain {
   }
 
   /**
-   * 강의 오픈
-   * @returns 오픈된 강의
-   * @throws ConflictStatusException 오픈 할 수 없는 상태입니다.
-   */
-  open(): this {
-    // TODO: cancel()로 인해 다시 "OPEN"되는 로직 개선이 필요하다. ex) 상태패턴
-    const isCallCancel =
-      this.props.enrollStatus === LectureEnrollStatus.OVER_CAPACITY &&
-      !this.isFull();
-
-    const isOpenable =
-      isCallCancel || this.props.enrollStatus === LectureEnrollStatus.EXPECTED;
-
-    if (!isOpenable) {
-      throw new ConflictStatusException(
-        `오픈 할 수 없는 상태입니다.
-        - 현재 상태: ${this.props.enrollStatus}
-        - 오픈 가능한 상태: ${LectureEnrollStatus.EXPECTED}, 남은 자리가 있는 경우
-        `,
-      );
-    }
-    this.props.enrollStatus = LectureEnrollStatus.OPEN;
-    return this;
-  }
-
-  /**
-   * 정원초과 처리
-   * @returns 정원초과 처리된 강의
-   * @throws ConflictStatusException "정원초과" 상태로 변경 불가합니다.
-   */
-  full(): this {
-    const isOverCapacity =
-      this.props.enrollStatus === LectureEnrollStatus.OPEN && this.isFull();
-
-    if (!isOverCapacity) {
-      throw new ConflictStatusException(
-        `"정원초과" 상태로 변경 불가합니다.
-          - 현재 상태: ${this.props.enrollStatus}
-          - 가능한 상태: ${LectureEnrollStatus.OPEN}
-          `,
-      );
-    }
-    this.props.enrollStatus = LectureEnrollStatus.OVER_CAPACITY;
-    return this;
-  }
-
-  /**
-   * 강의 마감
-   * @returns 마감된 강의
-   * @throws ConflictStatusException 마감 할 수 없는 상태입니다.
-   */
-  close(): this {
-    const isCloseable =
-      this.props.enrollStatus === LectureEnrollStatus.OPEN ||
-      this.props.enrollStatus === LectureEnrollStatus.OVER_CAPACITY;
-    if (!isCloseable) {
-      throw new ConflictStatusException(
-        `마감 할 수 없는 상태입니다.
-        - 현재 상태: ${this.props.enrollStatus}
-        - 가능한 상태: ${LectureEnrollStatus.OPEN}, ${LectureEnrollStatus.OVER_CAPACITY}
-        `,
-      );
-    }
-    this.props.enrollStatus = LectureEnrollStatus.CLOSED;
-    return this;
-  }
-
-  /**
    * 정원이 가득 찼는지 확인
    * @returns 정원이 가득 찼는지 여부
    */
   isFull(): boolean {
     return this.props.currentEnrollment >= this.props.capacity;
+  }
+
+  /**
+   * 강의 오픈 가능한 상태인지 확인
+   * @returns 강의 오픈 가능한 상태인지 여부
+   */
+  canOpen(): boolean {
+    /** 정원초과 상태에서 잔여좌석이 있는 경우 오픈 가능 */
+    const isCallCancel =
+      this.props.enrollStatus === LectureEnrollStatus.OVER_CAPACITY &&
+      !this.isFull();
+    /** 신청예정 상태인 경우 오픈 가능 */
+    const isExpected = this.props.enrollStatus === LectureEnrollStatus.EXPECTED;
+
+    if (isCallCancel) return true;
+    if (isExpected) return true;
+    return false;
+  }
+
+  /**
+   * 정원초과 처리 가능한 상태인지 확인
+   * @returns 정원초과 처리 가능한 상태인지 여부
+   */
+  canFull(): boolean {
+    return (
+      this.props.enrollStatus === LectureEnrollStatus.OPEN && this.isFull()
+    );
+  }
+
+  /**
+   * 마감 가능한 상태인지 확인
+   * @returns 마감 가능한 상태인지 여부
+   */
+  canClose(): boolean {
+    return (
+      this.props.enrollStatus === LectureEnrollStatus.OPEN ||
+      this.props.enrollStatus === LectureEnrollStatus.OVER_CAPACITY
+    );
   }
 
   /**
@@ -200,6 +170,60 @@ export class Lecture extends AbstractDomain {
       this.props.enrollStatus === LectureEnrollStatus.OPEN ||
       this.props.enrollStatus === LectureEnrollStatus.OVER_CAPACITY
     );
+  }
+
+  /**
+   * 강의 오픈
+   * @returns 오픈된 강의
+   * @throws ConflictStatusException 오픈 할 수 없는 상태입니다.
+   */
+  open(): this {
+    if (!this.canOpen()) {
+      throw new ConflictStatusException(
+        `오픈 할 수 없는 상태입니다.
+        - 현재 상태: ${this.props.enrollStatus}
+        - 오픈 가능한 상태: ${LectureEnrollStatus.EXPECTED}, 남은 자리가 있는 경우
+        `,
+      );
+    }
+    this.props.enrollStatus = LectureEnrollStatus.OPEN;
+    return this;
+  }
+
+  /**
+   * 정원초과 처리
+   * @returns 정원초과 처리된 강의
+   * @throws ConflictStatusException "정원초과" 상태로 변경 불가합니다.
+   */
+  full(): this {
+    if (!this.canFull()) {
+      throw new ConflictStatusException(
+        `"정원초과" 상태로 변경 불가합니다.
+          - 현재 상태: ${this.props.enrollStatus}
+          - 가능한 상태: ${LectureEnrollStatus.OPEN}
+          `,
+      );
+    }
+    this.props.enrollStatus = LectureEnrollStatus.OVER_CAPACITY;
+    return this;
+  }
+
+  /**
+   * 강의 마감
+   * @returns 마감된 강의
+   * @throws ConflictStatusException 마감 할 수 없는 상태입니다.
+   */
+  close(): this {
+    if (!this.canClose()) {
+      throw new ConflictStatusException(
+        `마감 할 수 없는 상태입니다.
+        - 현재 상태: ${this.props.enrollStatus}
+        - 가능한 상태: ${LectureEnrollStatus.OPEN}, ${LectureEnrollStatus.OVER_CAPACITY}
+        `,
+      );
+    }
+    this.props.enrollStatus = LectureEnrollStatus.CLOSED;
+    return this;
   }
 
   /**
