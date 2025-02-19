@@ -1,4 +1,4 @@
-import { CreditType } from '../../../src';
+import { CreditType, SelectionType } from '../../../src';
 import { ConflictStatusException } from '../../../src/exception';
 import { Lecture, LectureEnrollStatus } from '../../../src/Lecture';
 
@@ -15,6 +15,7 @@ describe('Lecture - 상태를 중점으로 테스트한다.', () => {
     name: 'Sample Lecture',
     professor: 'Prof. Test',
     creditType: CreditType.MAJOR,
+    creditSelectionType: SelectionType.REQUIRED,
     credit: 3,
     registrationStartAt: new Date(),
     registrationEndAt: new Date(new Date().getTime() + 1000 * 60 * 60), // 1시간 후

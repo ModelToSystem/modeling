@@ -1,4 +1,4 @@
-import { CreditType } from '../../../src';
+import { CreditType, SelectionType } from '../../../src';
 import { Lecture, LectureEnrollStatus } from '../../../src/Lecture';
 
 /**
@@ -14,6 +14,7 @@ describe('Lecture - 상태 전이 플로우 테스트', () => {
     name: 'Sample Lecture',
     professor: 'Prof. Test',
     creditType: CreditType.MAJOR,
+    creditSelectionType: SelectionType.REQUIRED,
     credit: 3,
     registrationStartAt: new Date(),
     registrationEndAt: new Date(new Date().getTime() + 1000 * 60 * 60), // 1시간 후

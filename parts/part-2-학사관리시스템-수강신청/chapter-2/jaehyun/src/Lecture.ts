@@ -1,5 +1,5 @@
 import { AbstractDomain } from './AbstractDomain';
-import { CreditType } from './credit/enum';
+import { CreditType, SelectionType } from './credit/enum';
 import { ConflictStatusException } from './exception';
 import { LectureSchedule } from './LectureSchedule';
 
@@ -22,6 +22,8 @@ export type LectureProps = {
   professor: string;
   /** 학점 타입 */
   creditType: CreditType;
+  /** 학점 선택 타입 */
+  creditSelectionType: SelectionType;
   /** 학점 */
   credit: number;
 
@@ -78,6 +80,10 @@ export class Lecture extends AbstractDomain {
   /** 학점 */
   get credit(): number {
     return this.props.credit;
+  }
+  /** 학점 선택 타입 */
+  get creditSelectionType(): SelectionType {
+    return this.props.creditSelectionType;
   }
 
   /** 강의 등록 상태 */
