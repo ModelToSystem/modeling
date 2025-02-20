@@ -6,7 +6,7 @@ import { AbstractCredit, CreditTypeRecord } from './AbstractCredit';
  * - 이수중인 학점은 확정된 학점이 아니다.
  */
 export class ProgressCredit extends AbstractCredit {
-  /** 최대 신청 학점 */
+  /** 최대 신청 학점 - TOOD: 외부에서 주입받도록 수정 필요 */
   readonly #MAX_ENROLLMENT_CREDITS = 21;
 
   /** 총 이수중인 학점
