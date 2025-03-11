@@ -1,4 +1,5 @@
 import { Lecture } from './Lecture';
+import { Term } from './Term';
 import { Student } from './user/Student';
 
 export enum enrollmentStatus {
@@ -9,17 +10,18 @@ export enum enrollmentStatus {
 type enrollmentProps = {
   lecture: Lecture;
   student: Student;
+  term: Term;
   status: enrollmentStatus;
 };
 
 export class Enrollment {
   constructor(readonly props: enrollmentProps) {}
 
-  static create(lecture: Lecture, student: Student): Enrollment {
+  static create(lecture: Lecture, student: Student, term: Term): Enrollment {
     const status = enrollmentStatus.CONFIRMED;
     /** 강의 정원 감소 */
     lecture.decreaseCapacity();
-    return new Enrollment({ lecture, student, status });
+    return new Enrollment({ lecture, student, term, status });
   }
 
   cancelStatus(lecture: Lecture): void {

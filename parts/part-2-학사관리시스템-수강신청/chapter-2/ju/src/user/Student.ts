@@ -1,5 +1,6 @@
 import { Enrollment } from '../Enrollment';
 import { Lecture } from '../Lecture';
+import { Term } from '../Term';
 import { User } from './User';
 
 type StudentProps = {
@@ -15,9 +16,13 @@ export class Student implements User {
   constructor(readonly props: StudentProps) {}
 
   /** 등록 객체 생성 명령 */
-  enrollLecture(lecture: Lecture): Enrollment {
+  enrollLecture(lecture: Lecture, term: Term): Enrollment {
+    /** 신청 기간 확인 */
+    if (!term.isEnrollmentOpen()) {
+      throw new Error('현재 학기의 수강 신청 기간이 아닙니다.');
+    }
     this.props.currentCredits += lecture.credits;
-    const enrollent = Enrollment.create(lecture, this);
+    const enrollent = Enrollment.create(lecture, this, term);
     this.props.enrollments.set(lecture.getId, enrollent);
 
     return enrollent;
