@@ -43,7 +43,7 @@ export class Enrollment {
     if (!this.props.term.isGradeSubmissionOpen) {
       throw new Error('현재는 성적 입력 기간이 아닙니다.');
     }
-    if (this.props.status !== enrollmentStatus.CONFIRMED) {
+    if (this.props.status === enrollmentStatus.CANCELED) {
       throw new Error('취소된 강의에는 성적을 입력할 수 없습니다.');
     }
     this.props.grade = grade;
@@ -52,5 +52,9 @@ export class Enrollment {
 
   get status(): enrollmentStatus {
     return this.props.status;
+  }
+
+  isGraded(): boolean {
+    return this.props.grade !== undefined;
   }
 }

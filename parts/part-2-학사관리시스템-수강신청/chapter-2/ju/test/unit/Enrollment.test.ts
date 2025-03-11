@@ -44,7 +44,7 @@ describe('Enrollment', () => {
   });
 
   describe('등록 객체의 취소한다.', () => {
-    it('✅  강의 취소 시 상태가 CANCELED로 변경되고 정원이 복구되어야 한다.', () => {
+    it('✅ 강의 취소 시 상태가 CANCELED로 변경되고 정원이 복구되어야 한다.', () => {
       const enrollment = Enrollment.create(lecture, student);
 
       expect(enrollment.status).toBe(enrollmentStatus.CONFIRMED);

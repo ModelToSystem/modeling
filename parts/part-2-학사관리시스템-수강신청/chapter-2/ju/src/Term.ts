@@ -2,9 +2,9 @@ type TermProps = {
   id: string;
   /** 학기명 **/
   title: string;
-  /** 강의 시작일 **/
+  /** 학기 시작일 **/
   startDate: Date;
-  /** 강의 종료일 **/
+  /** 학기 종료일 **/
   endDate: Date;
   /** 수강 신청 기간 **/
   enrollmentPeriod: { start: Date; end: Date };
@@ -14,6 +14,14 @@ type TermProps = {
 
 export class Term {
   constructor(readonly props: TermProps) {}
+
+  get getId(): string {
+    return this.props.id;
+  }
+
+  get getTitle(): string {
+    return this.props.title;
+  }
 
   get startDate(): Date {
     return this.props.startDate;

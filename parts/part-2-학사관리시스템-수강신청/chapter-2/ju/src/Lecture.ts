@@ -1,8 +1,14 @@
 import { Professor } from './user/Professor';
 
 export enum LectureType {
-  Major = '전공',
-  GE = '교양',
+  /** 전공 필수 */
+  MAJOR_REQUIRED = 'MAJOR_REQUIRED',
+  /** 전공 선택 */
+  MAJOR_ELECTIVE = 'MAJOR_ELECTIVE',
+  /** 교양 필수 */
+  GENERAL_REQUIRED = 'GENERAL_REQUIRED',
+  /** 교양 선택 */
+  GENERAL_ELECTIVE = 'GENERAL_ELECTIVE',
 }
 
 export enum DayOfWeek {
@@ -32,8 +38,6 @@ type LectureProps = {
   credits: number;
   /** 강의구분 */
   type: LectureType;
-  /** 필수 여부 */
-  required: boolean;
   /** 강의 시간 */
   timeLists: TimeList[];
   /** 최대인원 */
@@ -61,6 +65,10 @@ export class Lecture {
 
   get getId(): string {
     return this.props.id;
+  }
+
+  get getType(): LectureType {
+    return this.props.type;
   }
 
   get maxCapacity(): number {
