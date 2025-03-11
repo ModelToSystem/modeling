@@ -38,6 +38,13 @@ export class Student implements User {
     this.props.currentCredits -= lecture.credits;
   }
 
+  /** 특정 학기의 수강 내역 조회 */
+  getEnrollmentsByTerm(term: Term): Enrollment[] {
+    return Array.from(this.props.enrollments.values()).filter(
+      (enrollment) => enrollment.props.term.props.title === term.props.title,
+    );
+  }
+
   get currentCredits(): number {
     return this.props.currentCredits;
   }

@@ -5,6 +5,7 @@ import { Student } from './user/Student';
 export enum enrollmentStatus {
   CONFIRMED = 'CONFIRMED',
   CANCELED = 'CANCELED',
+  GRADED = 'GRADED',
 }
 
 type enrollmentProps = {
@@ -12,6 +13,7 @@ type enrollmentProps = {
   student: Student;
   term: Term;
   status: enrollmentStatus;
+  grade?: number;
 };
 
 export class Enrollment {
@@ -34,6 +36,18 @@ export class Enrollment {
 
     /** 상태 변경 */
     this.props.status = status;
+  }
+
+  /** 성적 입력 */
+  setGrade(grade: number): void {
+    if (!this.props.term.isGradeSubmissionOpen) {
+      throw new Error('현재는 성적 입력 기간이 아닙니다.');
+    }
+    if (this.props.status !== enrollmentStatus.CONFIRMED) {
+      throw new Error('취소된 강의에는 성적을 입력할 수 없습니다.');
+    }
+    this.props.grade = grade;
+    this.props.status = enrollmentStatus.GRADED;
   }
 
   get status(): enrollmentStatus {

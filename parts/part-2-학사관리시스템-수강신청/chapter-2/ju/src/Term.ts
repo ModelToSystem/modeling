@@ -1,4 +1,5 @@
 type TermProps = {
+  id: string;
   /** 학기명 **/
   title: string;
   /** 강의 시작일 **/
@@ -40,7 +41,7 @@ export class Term {
   }
 
   /** 성적 입력 기간 확인 */
-  isgradeSubmissionOpen(): boolean {
+  isGradeSubmissionOpen(): boolean {
     const now = new Date();
     return (
       now >= this.props.gradeSubmissionPeriod.start &&
