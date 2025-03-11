@@ -40,7 +40,7 @@ export class Enrollment {
 
   /** 성적 입력 */
   setGrade(grade: number): void {
-    if (!this.props.term.isGradeSubmissionOpen) {
+    if (!this.props.term.isGradeSubmissionOpen()) {
       throw new Error('현재는 성적 입력 기간이 아닙니다.');
     }
     if (this.props.status === enrollmentStatus.CANCELED) {
