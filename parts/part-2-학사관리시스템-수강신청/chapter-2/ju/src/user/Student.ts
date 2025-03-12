@@ -85,7 +85,6 @@ export class Student implements User {
     };
 
     this.props.enrollments.forEach((enrollment) => {
-      console.warn('1', this.props.enrollments);
       if (enrollment.props.term.getId === term.getId && enrollment.isGraded()) {
         completedCredits[enrollment.props.lecture.getType] +=
           enrollment.props.lecture.credits;
