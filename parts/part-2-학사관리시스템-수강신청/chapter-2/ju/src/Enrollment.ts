@@ -55,6 +55,6 @@ export class Enrollment {
   }
 
   isGraded(): boolean {
-    return this.props.grade !== undefined;
+    return this.props.status === enrollmentStatus.GRADED;
   }
 }

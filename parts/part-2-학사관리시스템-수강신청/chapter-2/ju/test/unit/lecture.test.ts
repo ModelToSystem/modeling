@@ -7,7 +7,7 @@ describe('Lecture', () => {
     professor: new Professor({ userId: '1', name: '교수' }),
     roomNumber: 1,
     credits: 7,
-    type: LectureType.Major,
+    type: LectureType.MAJOR_REQUIRED,
     required: true,
     timeLists: [
       { startTime: '13:00', endTime: '15:00', dayOfWeek: DayOfWeek.FRIDAY },
