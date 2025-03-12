@@ -99,13 +99,12 @@ describe('Student', () => {
   describe('학점 계산', () => {
     it('✅ 특정 학기의 수강 신청 학점을 조회한다.', () => {
       const currentCredits = student.getCurrentCreditsByTerm(term);
-      expect(currentCredits[LectureType.MAJOR_REQUIRED]).toBe(7); // 취소된 강의 제외
+      expect(currentCredits[LectureType.MAJOR_REQUIRED]).toBe(7);
     });
 
     it('✅ 특정 학기의 이수 완료 학점을 조회한다.', () => {
       enrollLecture.setGrade(95);
       const completedCredits = student.getCompletedCreditsByTerm(term);
-      console.log(completedCredits);
       expect(completedCredits[LectureType.MAJOR_REQUIRED]).toBe(7);
     });
 
