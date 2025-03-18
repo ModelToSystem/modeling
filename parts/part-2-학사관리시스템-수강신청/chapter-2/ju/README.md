@@ -39,7 +39,6 @@ classDiagram
         +String id
         +String name
         +Int currentCredits
-        -Map<string, Enrollment> enrollments
         +checkCredits()
         +increaseCredits()
         +decreaseCredits()
@@ -50,6 +49,7 @@ classDiagram
         +Lecture lecture
         +Student student
         -Enum status
+        -Map<string, Enrollment> enrollments
         +cancelStatus()
         +status()
     }

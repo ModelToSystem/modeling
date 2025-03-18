@@ -17,25 +17,44 @@ type enrollmentProps = {
 };
 
 export class Enrollment {
+  /** Enrollment 배열 */
+  private static enrollments: Enrollment[] = [];
+
   constructor(readonly props: enrollmentProps) {}
 
+  /** 등록 생성 */
   static create(lecture: Lecture, student: Student, term: Term): Enrollment {
-    const status = enrollmentStatus.CONFIRMED;
+    if (lecture.isStatusClosed) throw new Error('강의가 닫혔습니다.');
+    if (lecture.isStatusPull) throw new Error('강의가 만석입니다.');
+
     /** 강의 정원 감소 */
     lecture.decreaseCapacity();
-    return new Enrollment({ lecture, student, term, status });
+
+    return new Enrollment({
+      lecture,
+      student,
+      term,
+      status: enrollmentStatus.CONFIRMED,
+    });
   }
 
-  cancelStatus(lecture: Lecture): void {
-    const status = enrollmentStatus.CANCELED;
-    if (this.props.status === status) {
-      throw new Error('이미 취소상태인 강의입니다.');
+  /** 등록 취소 */
+  static cancelStatus(lecture: Lecture, student: Student): Enrollment {
+    /** 등록 강의 확인 */
+    const enrollment = Enrollment.findEnrollment(lecture, student);
+    if (!enrollment) throw new Error('등록된 강의가 없습니다.');
+
+    /** 강의 상태 확인 */
+    if (enrollment.status === enrollmentStatus.CANCELED) {
+      throw new Error('이미 취소된 강의입니다.');
     }
+
     /** 강의 정원 증가(복구) */
-    lecture.increaseCapacity();
+    enrollment.props.lecture.increaseCapacity();
 
     /** 상태 변경 */
-    this.props.status = status;
+    enrollment.props.status = enrollmentStatus.CANCELED;
+    return enrollment;
   }
 
   /** 성적 입력 */
@@ -52,6 +71,39 @@ export class Enrollment {
 
   get status(): enrollmentStatus {
     return this.props.status;
+  }
+
+  /** 단일 Enrollment 조회 */
+  static findEnrollment(
+    lecture: Lecture,
+    student: Student,
+  ): Enrollment | undefined {
+    return Enrollment.enrollments.find(
+      (enrollment) =>
+        enrollment.props.student === student &&
+        enrollment.props.lecture === lecture,
+    );
+  }
+
+  /** 특정 학기의 모든 Enrollment 조회 */
+  static findByTerm(term: Term): Enrollment[] {
+    return Enrollment.enrollments.filter(
+      (enrollment) => enrollment.props.term === term,
+    );
+  }
+
+  /** 특정 학생의 모든 Enrollment 조회 */
+  static findByStudent(student: Student): Enrollment[] {
+    return Enrollment.enrollments.filter(
+      (enrollment) => enrollment.props.student === student,
+    );
+  }
+
+  /** 특정 강의의 모든 Enrollment 조회 */
+  static findByLecture(lecture: Lecture): Enrollment[] {
+    return Enrollment.enrollments.filter(
+      (enrollment) => enrollment.props.lecture === lecture,
+    );
   }
 
   isGraded(): boolean {

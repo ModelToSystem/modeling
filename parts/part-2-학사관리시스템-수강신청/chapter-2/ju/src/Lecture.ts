@@ -28,6 +28,12 @@ type TimeList = {
   dayOfWeek: DayOfWeek;
 };
 
+export enum LectureStatus {
+  OPEN = 'OPEN',
+  PULL = 'PULL',
+  CLOSED = 'CLOSED',
+}
+
 type LectureProps = {
   id: string;
   /** 담당교수 */
@@ -38,6 +44,8 @@ type LectureProps = {
   credits: number;
   /** 강의구분 */
   type: LectureType;
+  /** 강의상태 */
+  status: LectureStatus;
   /** 강의 시간 */
   timeLists: TimeList[];
   /** 최대인원 */
@@ -49,18 +57,25 @@ type LectureProps = {
 export class Lecture {
   constructor(readonly props: LectureProps) {}
 
+  /** 강의 정원 증가 */
   increaseCapacity(): void {
-    if (this.props.remainCapacity >= this.props.maxCapacity) {
-      throw new Error('강의인원을 초과했습니다.');
-    }
     this.props.remainCapacity++;
   }
 
+  /** 강의 정원 감소 */
   decreaseCapacity(): void {
-    if (this.props.remainCapacity === 0) {
-      throw new Error('강의 인원이 없습니다.');
-    }
     this.props.remainCapacity--;
+  }
+
+  /** 강의 상태 확인 */
+  isStatusOpen(): boolean {
+    return this.props.status === LectureStatus.OPEN;
+  }
+  isStatusClosed(): boolean {
+    return this.props.status === LectureStatus.CLOSED;
+  }
+  isStatusPull(): boolean {
+    return this.props.status === LectureStatus.PULL;
   }
 
   get getId(): string {
