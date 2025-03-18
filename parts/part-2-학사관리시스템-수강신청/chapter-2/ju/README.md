@@ -17,7 +17,7 @@ classDiagram
         +Int maxCapacity
         +Int remainCapacity
         +increaseCapacity()
-        +decreasePersonnel()
+        +decreasePersonnel()ㅣ
         +availableCapacity()
     }
 
@@ -56,9 +56,8 @@ classDiagram
 
     %% 관계 설정
     Student --> "1 : 1" User
-    Student "1" --o "n" Enrollment
     Professor --> "1 : 1" User
-    Professor "1" --> "n" Lecture
-    Enrollment "1" --> "1" Lecture
+    Student "1" --> "n" Enrollment
+    Lecture "1" --> "n" Enrollment
     Lecture "1" --> "n" TimeList
 ```
